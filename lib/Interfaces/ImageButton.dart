@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:logger/logger.dart';
 import 'package:flame/sprite.dart';
 
 import 'package:spacegame/Gestures/Tappable.dart';
@@ -14,10 +15,15 @@ class ImageButton implements Tappable {
   // The tilesize of the game/screen
   double tileSize;
 
+  Logger logger;
+
   ImageButton(String filename, this.tileSize, double left, double top,
       double width, double height) {
     // Main bottom bar interface items
     image = Sprite(filename);
+
+    // Create logger
+    logger = Logger();
 
     resize(left, top, width, height);
   }
@@ -56,6 +62,11 @@ class ImageButton implements Tappable {
 
   @override
   void onTapDown() {
-    print("got tapped!\n");
+    logger.d("tapDown handling should go here");
+  }
+
+  @override
+  void onTapUp() {
+    logger.d("tapUp handling should go here");
   }
 }

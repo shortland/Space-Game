@@ -1,24 +1,31 @@
 import 'package:flutter/gestures.dart';
 
 import 'package:spacegame/SpaceGame.dart';
-import 'package:spacegame/Interfaces/UserInterface.dart';
 
 class GestureHandler {
   final SpaceGameMain game;
 
-  GestureHandler(this.game);
+  GestureHandler(this.game) {
+    game.gestureCoverage = {
+      'tapDown': Map(),
+      'tapUp': Map(),
+    };
+  }
 
   void onTapDown(TapDownDetails d) {
-    // bool isHandled = false;
-
-    game.coverage.forEach((k, v) {
-      if (k == null) {
+    game.gestureCoverage['tapDown']?.forEach((k, v) {
+      if (v.contains(d.globalPosition)) {
+        k.onTapDown();
         return;
       }
+    });
+  }
 
+  void onTapUp(TapUpDetails d) {
+    game.gestureCoverage['tapUp']?.forEach((k, v) {
       if (v.contains(d.globalPosition)) {
-        // TODO: interface?
-        k.onTapDown();
+        k.onTapUp();
+        return;
       }
     });
   }

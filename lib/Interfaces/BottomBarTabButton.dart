@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:logger/logger.dart';
+
 import 'package:spacegame/SpaceGame.dart';
 import 'package:spacegame/Interfaces/ImageButton.dart';
 
@@ -15,14 +17,21 @@ class BottomBarTabButton extends ImageButton {
   // The size of the button
   Size size;
 
+  Logger logger;
+
   BottomBarTabButton(
       this.game, this.barIndex, this.name, this.size, String filename)
       : super(filename, game.tileSize, barIndex * size.width,
-            game.screenSize.height - size.height, size.width, size.height);
+            game.screenSize.height - size.height, size.width, size.height) {
+    logger = Logger();
+  }
 
   @override
-  void onTapDown() {
-    print("processing tap for " + name + "\n");
-    super.onTapDown();
+  void onTapUp() {
+    // tmp debugd
+    logger.d("processing tap for " + name);
+
+    // imagebutton tapdown
+    super.onTapUp();
   }
 }

@@ -80,7 +80,8 @@ class UserInterface {
           bottomBarButtonSize.height);
 
       // Collect the new tabs in the coverage map
-      game.coverage[tab] = tab.dimensions;
+      game.gestureCoverage['tapUp']?.update(tab, (oldV) => tab.dimensions,
+          ifAbsent: () => tab.dimensions);
     });
   }
 

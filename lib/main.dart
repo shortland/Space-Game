@@ -10,7 +10,7 @@ import 'package:spacegame/SpaceGame.dart';
 void main() async {
   // Wait for flame setup
   await setupFlame();
-  SpaceGameMain game = new SpaceGameMain();
+  SpaceGameMain game = SpaceGameMain();
 
   // Start game
   runApp(game.widget);

@@ -16,34 +16,22 @@ class SpaceGameMain extends Game {
   static const int WORLD_POOL_SIZE = 100;
   static const int WORLD_POOL_CONTAINER_SIZE = 10;
 
-  // World
   World world;
-
-  // No gravity
-  final Vector2 _gravity = Vector2.zero();
-
+  Vector2 gravity = Vector2.zero();
+  Size screenSize;
+  double tileSize;
+  Background background;
+  UserInterface userInterface;
   // Should probably use this eventually
   // final int scale = 5;
 
-  // Size of screen
-  Size screenSize;
-
-  // Individual scaled tile size
-  double tileSize;
-
-  // Background of the game
-  Background background;
-
-  // User Interface of the game
-  UserInterface userInterface;
-
   // UI Coverage in Rects - for determining tap event locations
   // The Object - and it's coverage as Rect
-  Map<Tappable, Rect> coverage = new Map();
+  Map<String, Map<Tappable, Rect>> gestureCoverage = Map();
 
   SpaceGameMain() {
-    world = new World.withPool(
-        _gravity, DefaultWorldPool(WORLD_POOL_SIZE, WORLD_POOL_CONTAINER_SIZE));
+    world = World.withPool(
+        gravity, DefaultWorldPool(WORLD_POOL_SIZE, WORLD_POOL_CONTAINER_SIZE));
     // Game initialize
     initialize();
   }
@@ -62,6 +50,7 @@ class SpaceGameMain extends Game {
     GestureHandler gestureHandler = GestureHandler(this);
     TapGestureRecognizer tap = TapGestureRecognizer();
     tap.onTapDown = gestureHandler.onTapDown;
+    tap.onTapUp = gestureHandler.onTapUp;
     Util().addGestureRecognizer(tap);
   }
 
