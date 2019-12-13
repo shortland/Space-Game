@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:flame/sprite.dart';
 
-class ImageButton {
+import 'package:spacegame/Gestures/Tappable.dart';
+
+class ImageButton implements Tappable {
   // UI Sprite
   Sprite image;
 
@@ -52,5 +54,8 @@ class ImageButton {
     resizeButton(widthNum * tileSize, heightNum * tileSize);
   }
 
-  void onTapDown() {}
+  @override
+  void onTapDown() {
+    print("got tapped!\n");
+  }
 }

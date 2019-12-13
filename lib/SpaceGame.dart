@@ -7,6 +7,7 @@ import 'package:flame/util.dart';
 import 'package:flutter/gestures.dart';
 
 import 'package:spacegame/Gestures/GestureHandler.dart';
+import 'package:spacegame/Gestures/Tappable.dart';
 import 'package:spacegame/Background.dart';
 import 'package:spacegame/Interfaces/UserInterface.dart';
 
@@ -35,6 +36,10 @@ class SpaceGameMain extends Game {
 
   // User Interface of the game
   UserInterface userInterface;
+
+  // UI Coverage in Rects - for determining tap event locations
+  // The Object - and it's coverage as Rect
+  Map<Tappable, Rect> coverage = new Map();
 
   SpaceGameMain() {
     world = new World.withPool(

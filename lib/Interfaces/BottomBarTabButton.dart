@@ -20,31 +20,9 @@ class BottomBarTabButton extends ImageButton {
       : super(filename, game.tileSize, barIndex * size.width,
             game.screenSize.height - size.height, size.width, size.height);
 
-  void render(Canvas c) {
-    super.render(c);
-  }
-
-  void resize(double left, double top, double width, double height) {
-    super.resize(left, top, width, height);
-  }
-
-  void moveButton(double left, double top) {
-    super.moveButton(left, top);
-  }
-
-  void resizeButton(double width, double height) {
-    super.resizeButton(width, height);
-  }
-
-  void moveButtonTiles(double leftNum, double topNum) {
-    super.moveButtonTiles(leftNum, topNum);
-  }
-
-  void resizeButtonTiles(double widthNum, double heightNum) {
-    super.resizeButtonTiles(widthNum, heightNum);
-  }
-
-  void update(double t) {
-    super.update(t);
+  @override
+  void onTapDown() {
+    print("processing tap for " + name + "\n");
+    super.onTapDown();
   }
 }

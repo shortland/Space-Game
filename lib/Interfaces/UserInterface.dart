@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flame/sprite.dart';
+import 'package:spacegame/Gestures/Tappable.dart';
 
 import 'package:spacegame/SpaceGame.dart';
 import 'package:spacegame/Interfaces/BottomBarTabButton.dart';
@@ -27,7 +28,7 @@ class UserInterface {
   List<BottomBarTabButton> bottomBarTabs = [];
 
   // Physical dimensional item placement objs
-  Rect backgroundDimensions;
+  Rect bottomBarContainer;
 
   UserInterface(this.game) {
     // Main bottom bar interface items
@@ -52,17 +53,23 @@ class UserInterface {
     });
 
     // Main bottom bar render
-    bottomInterfaceBar.renderRect(c, backgroundDimensions);
+    // bottomInterfaceBar.renderRect(c, bottomBarContainer);
   }
 
   void resize() {
     // Dimensions and placement of the background
-    backgroundDimensions = Rect.fromLTWH(
+    bottomBarContainer = Rect.fromLTWH(
       0,
       game.screenSize.height - (game.tileSize * 1.5),
       game.screenSize.width,
       game.tileSize * 1.5,
     );
+
+    // Collect the new bottom bar container in the coverage map
+    // TODO: make it its complete own object
+    // TODO: the buttons should be contructed inside the bottombarcontainer
+    // not here.
+    // game.coverage[null] = bottomBarContainer;
 
     // Resize bottom tabs
     bottomBarTabs.forEach((tab) {
@@ -71,6 +78,9 @@ class UserInterface {
           game.screenSize.height - bottomBarButtonSize.height,
           bottomBarButtonSize.width,
           bottomBarButtonSize.height);
+
+      // Collect the new tabs in the coverage map
+      game.coverage[tab] = tab.dimensions;
     });
   }
 

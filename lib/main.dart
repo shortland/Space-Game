@@ -25,7 +25,6 @@ Future setupFlame() async {
   await Flame.images.loadAll([
     // backgrounds
     'bgs/space_tall.png',
-    'bgs/space_wide.jpg',
     // interface items
     'interfaces/interface_bar.png',
     'interfaces/alliance.png',
