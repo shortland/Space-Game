@@ -19,7 +19,7 @@ class SpaceGameMain extends Game {
   World world;
   Vector2 gravity = Vector2.zero();
   Size screenSize;
-  double tileSize;
+  num tileSize;
   Background background;
   UserInterface userInterface;
   // Should probably use this eventually
@@ -27,7 +27,7 @@ class SpaceGameMain extends Game {
 
   // UI Coverage in Rects - for determining tap event locations
   // The Object - and it's coverage as Rect
-  Map<String, Map<Tappable, Rect>> gestureCoverage = Map();
+  Map<String, Map<Tappable, Rect>> gestureCoverage = {};
 
   SpaceGameMain() {
     world = World.withPool(

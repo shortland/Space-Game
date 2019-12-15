@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flame/sprite.dart';
-import 'package:spacegame/Gestures/Tappable.dart';
 
 import 'package:spacegame/SpaceGame.dart';
 import 'package:spacegame/Interfaces/BottomBarTabButton.dart';

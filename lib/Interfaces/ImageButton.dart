@@ -13,12 +13,12 @@ class ImageButton implements Tappable {
   Rect dimensions;
 
   // The tilesize of the game/screen
-  double tileSize;
+  num tileSize;
 
   Logger logger;
 
-  ImageButton(String filename, this.tileSize, double left, double top,
-      double width, double height) {
+  ImageButton(String filename, this.tileSize, num left, num top, num width,
+      num height) {
     // Main bottom bar interface items
     image = Sprite(filename);
 
@@ -32,7 +32,7 @@ class ImageButton implements Tappable {
     image.renderRect(c, dimensions);
   }
 
-  void resize(double left, double top, double width, double height) {
+  void resize(num left, num top, num width, num height) {
     dimensions = Rect.fromLTWH(
       left,
       top,
@@ -44,19 +44,19 @@ class ImageButton implements Tappable {
   // for animated ones?
   void update(double t) {}
 
-  void moveButton(double left, double top) {
+  void moveButton(num left, num top) {
     dimensions.translate(left, top);
   }
 
-  void resizeButton(double width, double height) {
+  void resizeButton(num width, num height) {
     dimensions.shift(Offset(width, height));
   }
 
-  void moveButtonTiles(double leftNum, double topNum) {
+  void moveButtonTiles(num leftNum, num topNum) {
     moveButton(leftNum * tileSize, topNum * tileSize);
   }
 
-  void resizeButtonTiles(double widthNum, double heightNum) {
+  void resizeButtonTiles(num widthNum, num heightNum) {
     resizeButton(widthNum * tileSize, heightNum * tileSize);
   }
 
