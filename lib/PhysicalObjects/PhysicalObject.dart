@@ -16,6 +16,7 @@ abstract class PhysicalObject {
   // start physics
   Vector2 acceleration = Vector2.zero();
   Body body;
+  BodyDef def = BodyDef();
 
   Rect dimensions;
   PolygonShape shape = PolygonShape();

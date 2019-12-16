@@ -27,6 +27,7 @@ Future setupFlame() async {
   await Flame.images.loadAll([
     // backgrounds
     'bgs/space_tall.png',
+    'bgs/plain_tall.png',
     // interface items
     'interfaces/interface_bar.png',
     'interfaces/alliance.png',
@@ -38,6 +39,8 @@ Future setupFlame() async {
     'interfaces/level.png',
     'interfaces/metal.png',
     'interfaces/shop.png',
+    'interfaces/gametitle.png',
+    'interfaces/playbutton.png',
     // structures
     'structures/structure_horizontal_rectangle_shell.png',
     'structures/structure_vertical_rectangle_shell.png',

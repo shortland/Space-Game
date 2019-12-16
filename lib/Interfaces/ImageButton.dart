@@ -15,10 +15,13 @@ class ImageButton implements Tappable {
   // The tilesize of the game/screen
   num tileSize;
 
+  // Callback for custom function on tap event
+  void Function(int) bindCallback;
+
   Logger logger;
 
-  ImageButton(String filename, this.tileSize, num left, num top, num width,
-      num height) {
+  ImageButton(String filename, this.tileSize, double left, double top,
+      double width, double height) {
     // Main bottom bar interface items
     image = Sprite(filename);
 
@@ -32,7 +35,7 @@ class ImageButton implements Tappable {
     image.renderRect(c, dimensions);
   }
 
-  void resize(num left, num top, num width, num height) {
+  void resize(double left, double top, double width, double height) {
     dimensions = Rect.fromLTWH(
       left,
       top,
@@ -42,7 +45,7 @@ class ImageButton implements Tappable {
   }
 
   // for animated ones?
-  void update(double t) {}
+  void update(double time) {}
 
   void moveButton(num left, num top) {
     dimensions.translate(left, top);
@@ -63,10 +66,20 @@ class ImageButton implements Tappable {
   @override
   void onTapDown() {
     logger.d("tapDown handling should go here");
+
+    if (bindCallback != null) {
+      // tmp int 3, just so i remember how to pass in parameters into callback types
+      bindCallback(3);
+    }
   }
 
   @override
   void onTapUp() {
     logger.d("tapUp handling should go here");
+
+    if (bindCallback != null) {
+      // tmp int 3, just so i remember how to pass in parameters into callback types
+      bindCallback(3);
+    }
   }
 }

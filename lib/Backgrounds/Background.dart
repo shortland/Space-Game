@@ -3,15 +3,16 @@ import 'dart:ui';
 import 'package:flame/sprite.dart';
 
 import 'package:spacegame/SpaceGame.dart';
+import 'package:spacegame/Backgrounds/Backgrounds.dart';
 
 class Background {
   final SpaceGameMain game;
   Sprite bgSprite;
   Rect bgRect;
 
-  Background(this.game) {
-    bgSprite = Sprite('bgs/space_tall.png');
+  Background(this.game, {Backgrounds bg}) {
     resize();
+    bgSprite = Sprite(bgEnumToString(bg) ?? bgEnumToString(Backgrounds.PLAIN));
   }
 
   void render(Canvas c) {
@@ -24,7 +25,6 @@ class Background {
       0,
       game.screenSize.width,
       game.screenSize.height,
-      //game.screenSize.height - (game.tileSize * 23),
       //game.tileSize * 9,
       //game.tileSize * 23,
     );

@@ -8,14 +8,26 @@ import 'package:flame/util.dart';
 
 import 'package:spacegame/Gestures/GestureHandler.dart';
 import 'package:spacegame/Gestures/Tappable.dart';
-import 'package:spacegame/Background.dart';
+import 'package:spacegame/Backgrounds/Backgrounds.dart';
+import 'package:spacegame/Backgrounds/Background.dart';
 import 'package:spacegame/Interfaces/UserInterface.dart';
 import 'package:spacegame/Structures/HollowRectangleStructure.dart';
+import 'package:spacegame/Views/ViewTypes.dart';
+import 'package:spacegame/Views/IntroView.dart';
+import 'package:spacegame/Views/MainView.dart';
+// import 'package:spacegame/Views/HomeZoomableView.dart';
+// import 'package:spacegame/Views/MenuView.dart';
 
 class SpaceGameMain extends Game {
-  // Box2D
   static const int WORLD_POOL_SIZE = 100;
   static const int WORLD_POOL_CONTAINER_SIZE = 10;
+
+  ViewTypes activeView = ViewTypes.INTRO;
+  ViewTypes lastView;
+  IntroView introView;
+  MainView mainView;
+  // HomeZoomableView homeZoomableView;
+  // MenuView menuView;
 
   World world;
   Vector2 gravity = Vector2.zero();
@@ -46,15 +58,21 @@ class SpaceGameMain extends Game {
     // resize once initialize dimensions have loaded
     resize(await Flame.util.initialDimensions());
 
-    // Create and draw the background
-    background = Background(this);
+    // Setup tap gesture capabilities
+    GestureHandler gestureHandler = GestureHandler(this);
+    TapGestureRecognizer tap = TapGestureRecognizer();
+    tap.onTapDown = gestureHandler.onTapDown;
+    tap.onTapUp = gestureHandler.onTapUp;
+    Util().addGestureRecognizer(tap);
 
-    // List<String> imageSides = [
-    //   'structures/structure_horizontal_rectangle_shell.png',
-    //   'structures/structure_vertical_rectangle_shell.png',
-    //   'structures/structure_horizontal_rectangle_shell.png',
-    //   'structures/structure_vertical_rectangle_shell.png',
-    // ];
+    // init views
+    introView = IntroView(this);
+    mainView = MainView(this);
+    // homeZoomableView = HomeZoomableView(this);
+    // menuView = MenuView(this);
+
+    // Create and draw the background
+    background = Background(this, bg: Backgrounds.SPACE);
 
     box = HollowRectangleStructure(
       this,
@@ -62,29 +80,22 @@ class SpaceGameMain extends Game {
       Vector2(100, 100),
     );
 
-    // rect = RectangularPhysicalObject(this, Size(120, 300), Vector2(100, 100),
-    //     'structures/structure_vertical_rectangle_shell.png');
-
     // Create and draw the user interface
     userInterface = UserInterface(this);
-
-    // Setup tap gesture capabilities
-    GestureHandler gestureHandler = GestureHandler(this);
-    TapGestureRecognizer tap = TapGestureRecognizer();
-    tap.onTapDown = gestureHandler.onTapDown;
-    tap.onTapUp = gestureHandler.onTapUp;
-    Util().addGestureRecognizer(tap);
   }
 
   void resize(Size size) {
     screenSize = size;
     tileSize = screenSize.width / 9;
 
-    // Resize the UI
-    userInterface?.resize();
-
     // Would be useful to use too
     // screenRect = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
+
+    // Resize the Views
+    introView?.resize();
+    mainView?.resize();
+    // homeZoomableView?.resize();
+    // menuView?.resize();
 
     // Resize actual game widget
     super.resize(size);
@@ -100,14 +111,12 @@ class SpaceGameMain extends Game {
     // Save the current canvas state
     canvas.save();
 
-    // Render the background
-    background?.render(canvas);
-
-    // Render the user interface
-    userInterface?.render(canvas);
-
-    // NOTE: tmp
-    box?.render(canvas);
+    // Render whatever view we currently have active
+    if (activeView == ViewTypes.INTRO) {
+      introView?.render(canvas);
+    } else if (activeView == ViewTypes.MAIN) {
+      mainView?.render(canvas);
+    }
 
     // Restore the canvas since we're done with it
     canvas.restore();
@@ -119,6 +128,7 @@ class SpaceGameMain extends Game {
     // world.stepDt(time, 100, 100);
 
     // Update the user interface
-    userInterface?.update(time);
+    // Do I need this?
+    // userInterface?.update(time);
   }
 }
