@@ -1,13 +1,12 @@
 import 'dart:ui';
 
 import 'package:logger/logger.dart';
+import 'package:spacegame/Mixins/HasGameRef.dart';
 
 import 'package:spacegame/SpaceGame.dart';
 import 'package:spacegame/Interfaces/ImageButton.dart';
 
-class BottomBarTabButton extends ImageButton {
-  final SpaceGameMain game;
-
+class BottomBarTabButton extends ImageButton with HasGameRef {
   // The button index # placement (as if bottom bar was an array of buttons)
   int barIndex;
 
@@ -17,19 +16,21 @@ class BottomBarTabButton extends ImageButton {
   // The size of the button
   Size size;
 
-  Logger logger;
-
-  BottomBarTabButton(
-      this.game, this.barIndex, this.name, this.size, String filename)
-      : super(filename, game.tileSize, barIndex * size.width,
-            game.screenSize.height - size.height, size.width, size.height) {
-    logger = Logger();
-  }
+  BottomBarTabButton(this.barIndex, this.name, this.size, String filename)
+      : super(
+            filename,
+            //gameRef.tileSize
+            50,
+            barIndex * size.width,
+            // gameRef.screenSize.height - size.height,
+            400,
+            size.width,
+            size.height);
 
   @override
   void onTapUp() {
     // tmp debugd
-    logger.d("processing tap for " + name);
+    gameRef.logger.d("processing tap for " + name);
 
     // imagebutton tapdown
     super.onTapUp();

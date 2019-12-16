@@ -4,16 +4,22 @@ import 'package:flame/util.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:spacegame/Mixins/HasGameRef.dart';
 
 import 'package:spacegame/SpaceGame.dart';
+import 'package:spacegame/Views/ViewTypes.dart';
+
+class Main {
+  static SpaceGameMain game;
+}
 
 void main() async {
   // Wait for flame setup
   await setupFlame();
-  SpaceGameMain game = SpaceGameMain();
+  Main.game = SpaceGameMain();
 
   // Start game
-  runApp(game.widget);
+  runApp(Main.game.widget);
 
   // runApp(new MaterialApp(
   //   home: new Scaffold(body: HomeScreen()),
@@ -22,6 +28,55 @@ void main() async {
   //     '/options': (BuildContext ctx) => Scaffold(body: OptionsScreen()),
   //   },
   // ));
+}
+
+class StartGameScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _StartGameView();
+}
+
+class MyGameBinder extends SpaceGameMain {
+  _StartGameView startView = ViewTypes.INTRO;
+
+  MyGameBinder(defaultView, bool showTutorial) : super(showTutorial);
+
+  @override
+  void stop() {
+    super.stop();
+    this.startView?.redraw();
+  }
+}
+
+class _StartGameView extends State<StartGameScreen> {
+  redraw() {
+    this.setState(() => {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (Main.game != null) {
+      if (Main.game.state != GameState.STOPPED) {
+        return WillPopScope(
+          onWillPop: () async {
+            return await Main.game.willPop();
+          },
+          child: Main.game.widget,
+        );
+      } else {
+        Main.game = null;
+        setState(() {});
+      }
+    }
+
+    
+  }
+
+  startGame(bool shouldSore, Options options) async {
+    bool showTutorial = await Data.getAndToggleShowTutorial();
+    Data.currentOptions = options;
+    Main.game = new MyGameBinder(this, shouldSore, showTutorial);
+    setState(() {});
+  }
 }
 
 /// Setup all Flame specific parts

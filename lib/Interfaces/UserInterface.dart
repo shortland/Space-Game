@@ -38,8 +38,7 @@ class UserInterface {
 
     // Create each of the buttons and place it into bottomBarTabs
     bottomBarTabMap.forEach((k, v) {
-      bottomBarTabs
-          .add(BottomBarTabButton(game, v[0], k, bottomBarButtonSize, v[1]));
+      bottomBarTabs.add(BottomBarTabButton(v[0], k, bottomBarButtonSize, v[1]));
     });
 
     resize();
@@ -72,14 +71,11 @@ class UserInterface {
 
     // Resize bottom tabs
     bottomBarTabs.forEach((tab) {
-      tab.resize(
-          tab.barIndex * bottomBarButtonSize.width,
-          game.screenSize.height - bottomBarButtonSize.height,
-          bottomBarButtonSize.width,
-          bottomBarButtonSize.height);
+      tab.resize(Size(tab.barIndex * bottomBarButtonSize.width,
+          game.screenSize.height - bottomBarButtonSize.height));
 
       // Collect the new tabs in the coverage map
-      game.gestureCoverage['tapUp']?.update(tab, (oldV) => tab.dimensions,
+      game?.gestureCoverage['tapUp']?.update(tab, (oldV) => tab.dimensions,
           ifAbsent: () => tab.dimensions);
     });
   }

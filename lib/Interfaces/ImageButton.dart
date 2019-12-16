@@ -2,10 +2,13 @@ import 'dart:ui';
 
 import 'package:logger/logger.dart';
 import 'package:flame/sprite.dart';
+import 'package:flame/components/component.dart';
 
+import 'package:spacegame/Mixins/HasGameRef.dart';
 import 'package:spacegame/Gestures/Tappable.dart';
+import 'package:spacegame/SpaceGame.dart';
 
-class ImageButton implements Tappable {
+class ImageButton extends SpriteComponent with HasGameRef implements Tappable {
   // UI Sprite
   Sprite image;
 
@@ -18,34 +21,45 @@ class ImageButton implements Tappable {
   // Callback for custom function on tap event
   void Function(int) bindCallback;
 
-  Logger logger;
+  // Position of the image... Need to figure out how to make it dynamic via resize()
+  // typically would use the game.screenSize to calculate new position, but this class
+  // does not have game. Consider adding it?
+  double left;
+  double top;
 
-  ImageButton(String filename, this.tileSize, double left, double top,
-      double width, double height) {
+  ImageButton(String filename, this.tileSize, this.left, this.top, double width,
+      double height) {
     // Main bottom bar interface items
     image = Sprite(filename);
 
-    // Create logger
-    logger = Logger();
+    resize(Size(width, height));
 
-    resize(left, top, width, height);
+    // register with the gestureCoverage map
+    gameRef?.gestureCoverage['tapUp']
+        ?.update(this, (oldV) => dimensions, ifAbsent: () => dimensions);
   }
 
+  @override
   void render(Canvas c) {
     image.renderRect(c, dimensions);
   }
 
-  void resize(double left, double top, double width, double height) {
+  @override
+  void resize(Size size) {
     dimensions = Rect.fromLTWH(
       left,
       top,
-      width,
-      height,
+      size.width,
+      size.height,
     );
   }
 
-  // for animated ones?
-  void update(double time) {}
+  @override
+  void update(double time) {
+    super.update(time);
+
+    // TODO: for animated ones?
+  }
 
   void moveButton(num left, num top) {
     dimensions.translate(left, top);
@@ -65,7 +79,7 @@ class ImageButton implements Tappable {
 
   @override
   void onTapDown() {
-    logger.d("tapDown handling should go here");
+    gameRef.logger.d("tapDown handling should go here");
 
     if (bindCallback != null) {
       // tmp int 3, just so i remember how to pass in parameters into callback types
@@ -75,7 +89,7 @@ class ImageButton implements Tappable {
 
   @override
   void onTapUp() {
-    logger.d("tapUp handling should go here");
+    gameRef.logger.d("tapUp handling should go here");
 
     if (bindCallback != null) {
       // tmp int 3, just so i remember how to pass in parameters into callback types
