@@ -10,6 +10,8 @@ import 'package:spacegame/Gestures/GestureHandler.dart';
 import 'package:spacegame/Gestures/Tappable.dart';
 import 'package:spacegame/Background.dart';
 import 'package:spacegame/Interfaces/UserInterface.dart';
+// import 'package:spacegame/PhysicalObjects/Wall.dart';
+import 'package:spacegame/Structures/ImageStructureHollowRectangle.dart';
 
 class SpaceGameMain extends Game {
   // Box2D
@@ -22,6 +24,7 @@ class SpaceGameMain extends Game {
   num tileSize;
   Background background;
   UserInterface userInterface;
+  ImageStructureRectangular box;
   // Should probably use this eventually
   // final int scale = 5;
 
@@ -32,6 +35,7 @@ class SpaceGameMain extends Game {
   SpaceGameMain() {
     world = World.withPool(
         gravity, DefaultWorldPool(WORLD_POOL_SIZE, WORLD_POOL_CONTAINER_SIZE));
+
     // Game initialize
     initialize();
   }
@@ -42,6 +46,20 @@ class SpaceGameMain extends Game {
 
     // Create and draw the background
     background = Background(this);
+
+    List<String> imageSides = [
+      'structures/structure_horizontal_rectangle_shell.png',
+      'structures/structure_vertical_rectangle_shell.png',
+      'structures/structure_horizontal_rectangle_shell.png',
+      'structures/structure_vertical_rectangle_shell.png',
+    ];
+
+    box = ImageStructureRectangular(
+      this,
+      200.0,
+      100.0,
+      imageSides,
+    );
 
     // Create and draw the user interface
     userInterface = UserInterface(this);
@@ -68,6 +86,7 @@ class SpaceGameMain extends Game {
     super.resize(size);
   }
 
+  // Wall wall;
   @override
   void render(Canvas canvas) {
     if (screenSize == null) {
@@ -82,6 +101,8 @@ class SpaceGameMain extends Game {
 
     // Render the user interface
     userInterface?.render(canvas);
+
+    box?.render(canvas);
 
     // Restore the canvas since we're done with it
     canvas.restore();

@@ -1,37 +1,28 @@
-import 'dart:ui';
+// import 'dart:ui';
 
-import 'package:flame/components/component.dart';
+// import 'package:spacegame/Structures/ImageStructureRectangular.dart';
 
-class StandardStructure extends SpriteComponent {
-  // The name of this structure
-  String name;
+// class StandardStructure extends ImageStructureRectangular {
+//   String structureName;
+//   String structureType;
 
-  // The type of structure it is
-  String type;
+//   static const List<String> structureImages = [
+//     'structure_vertical_rectangle',
+//     'structure_horizontal_rectangle',
+//   ];
 
-  // Physics of the structure
-  // Body body;
-  // PolygonShape shape;
+//   StandardStructure(this.structureName, this.structureType, num width,
+//       num height, int structureImageIndex)
+//       : super(width, height,
+//             "structures/" + structureImages[structureImageIndex]);
 
-  // Painting/rendering the object
-  Path path;
-  Paint paint;
+//   @override
+//   void update(double t) {
+//     super.update(t);
+//   }
 
-  // Constructor
-  StandardStructure(this.name, this.type)
-      : super.rectangle(100, 200, 'structure_vertical_rectangle');
-
-  @override
-  void update(double t) {}
-
-  @override
-  void resize(Size size) {
-    // Size of structure
-    this.width = size.width;
-    this.height = size.height;
-
-    // Position of structure
-    this.x = 0;
-    this.y = 0;
-  }
-}
+//   @override
+//   void resize(Size size) {
+//     super.resize(size);
+//   }
+// }
