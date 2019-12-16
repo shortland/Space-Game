@@ -7,7 +7,6 @@ import 'package:spacegame/SpaceGame.dart';
 
 abstract class PhysicalObject {
   final SpaceGameMain game;
-
   Size size;
   Vector2 position;
   String path;

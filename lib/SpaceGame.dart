@@ -88,9 +88,6 @@ class SpaceGameMain extends Game {
     screenSize = size;
     tileSize = screenSize.width / 9;
 
-    // Would be useful to use too
-    // screenRect = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
-
     // Resize the Views
     introView?.resize();
     mainView?.resize();
@@ -130,5 +127,6 @@ class SpaceGameMain extends Game {
     // Update the user interface
     // Do I need this?
     // userInterface?.update(time);
+    // super.update(time);
   }
 }

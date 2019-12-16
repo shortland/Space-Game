@@ -10,6 +10,10 @@ class MainView {
 
   MainView(this.game) {
     resize();
+    initialize();
+  }
+
+  void initialize() {
     viewBg = Background(game, bg: Backgrounds.SPACE);
   }
 

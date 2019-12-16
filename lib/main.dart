@@ -14,6 +14,14 @@ void main() async {
 
   // Start game
   runApp(game.widget);
+
+  // runApp(new MaterialApp(
+  //   home: new Scaffold(body: HomeScreen()),
+  //   routes: {
+  //     '/start': (BuildContext ctx) => Scaffold(body: StartGameScreen()),
+  //     '/options': (BuildContext ctx) => Scaffold(body: OptionsScreen()),
+  //   },
+  // ));
 }
 
 /// Setup all Flame specific parts

@@ -6,7 +6,6 @@ import 'package:spacegame/SpaceGame.dart';
 
 abstract class Structure {
   final SpaceGameMain game;
-
   Size size;
   Vector2 position;
   List<dynamic> physicalObjects = [];

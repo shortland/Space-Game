@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flame/sprite.dart';
+import 'package:flutter/material.dart';
 import 'package:spacegame/Interfaces/ImageButton.dart';
 
 import 'package:spacegame/SpaceGame.dart';
@@ -14,16 +15,16 @@ class IntroView {
   Sprite titleSprite;
   ImageButton playBtn;
   Background viewBg;
-  Canvas tmpCanvas;
+  // Canvas tmpCanvas;
 
   IntroView(this.game) {
     resize();
-    titleSprite = Sprite('interfaces/gametitle.png');
-    viewBg = Background(game, bg: Backgrounds.PLAIN);
     initialize();
   }
 
   void initialize() {
+    titleSprite = Sprite('interfaces/gametitle.png');
+    viewBg = Background(game, bg: Backgrounds.PLAIN);
     playBtn = ImageButton(
         'interfaces/playbutton.png',
         game.tileSize,
@@ -46,7 +47,7 @@ class IntroView {
     playBtn.render(canvas);
 
     // maybe this works since we aren't really ever writing or changing canvas ever until we use it on the tap/click event binded below
-    tmpCanvas = canvas;
+    // tmpCanvas = canvas;
   }
 
   void resize() {
@@ -71,8 +72,12 @@ class IntroView {
   void playClickEvent(int a) {
     print("clicked on play");
     game.activeView = ViewTypes.MAIN;
-    // tmpCanvas.save(); // maye?
-    game.render(tmpCanvas);
-    // tmpCanvas.restore();
+
+    // NOTE: This works but throws some nasty errors, plus it's generally a bad idea.
+    // game.render(tmpCanvas);
+
+    // TODO: This works but isn't great performance wise
+    // Create's a whole new instance of the app ontop of the preexisting one
+    runApp(game.widget);
   }
 }
