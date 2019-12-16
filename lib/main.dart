@@ -18,6 +18,8 @@ void main() async {
 
 /// Setup all Flame specific parts
 Future setupFlame() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   var flameUtil = Util();
   await flameUtil.fullScreen();
   await flameUtil.setOrientation(DeviceOrientation.portraitUp);

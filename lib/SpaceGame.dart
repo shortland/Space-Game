@@ -1,17 +1,16 @@
 import 'dart:ui';
 
+import 'package:flutter/gestures.dart';
 import 'package:box2d_flame/box2d.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/util.dart';
-import 'package:flutter/gestures.dart';
 
 import 'package:spacegame/Gestures/GestureHandler.dart';
 import 'package:spacegame/Gestures/Tappable.dart';
 import 'package:spacegame/Background.dart';
 import 'package:spacegame/Interfaces/UserInterface.dart';
-// import 'package:spacegame/PhysicalObjects/Wall.dart';
-import 'package:spacegame/Structures/ImageStructureHollowRectangle.dart';
+import 'package:spacegame/Structures/HollowRectangleStructure.dart';
 
 class SpaceGameMain extends Game {
   // Box2D
@@ -24,7 +23,10 @@ class SpaceGameMain extends Game {
   num tileSize;
   Background background;
   UserInterface userInterface;
-  ImageStructureRectangular box;
+
+  // NOTE: temporary objects
+  HollowRectangleStructure box;
+
   // Should probably use this eventually
   // final int scale = 5;
 
@@ -47,19 +49,21 @@ class SpaceGameMain extends Game {
     // Create and draw the background
     background = Background(this);
 
-    List<String> imageSides = [
-      'structures/structure_horizontal_rectangle_shell.png',
-      'structures/structure_vertical_rectangle_shell.png',
-      'structures/structure_horizontal_rectangle_shell.png',
-      'structures/structure_vertical_rectangle_shell.png',
-    ];
+    // List<String> imageSides = [
+    //   'structures/structure_horizontal_rectangle_shell.png',
+    //   'structures/structure_vertical_rectangle_shell.png',
+    //   'structures/structure_horizontal_rectangle_shell.png',
+    //   'structures/structure_vertical_rectangle_shell.png',
+    // ];
 
-    box = ImageStructureRectangular(
+    box = HollowRectangleStructure(
       this,
-      200.0,
-      100.0,
-      imageSides,
+      Size(200, 350),
+      Vector2(100, 100),
     );
+
+    // rect = RectangularPhysicalObject(this, Size(120, 300), Vector2(100, 100),
+    //     'structures/structure_vertical_rectangle_shell.png');
 
     // Create and draw the user interface
     userInterface = UserInterface(this);
@@ -102,6 +106,7 @@ class SpaceGameMain extends Game {
     // Render the user interface
     userInterface?.render(canvas);
 
+    // NOTE: tmp
     box?.render(canvas);
 
     // Restore the canvas since we're done with it
@@ -109,11 +114,11 @@ class SpaceGameMain extends Game {
   }
 
   @override
-  void update(double t) {
+  void update(double time) {
     // Physics - maybe want to do something with this eventually?
-    // world.stepDt(t, 100, 100);
+    // world.stepDt(time, 100, 100);
 
     // Update the user interface
-    userInterface?.update(t);
+    userInterface?.update(time);
   }
 }
