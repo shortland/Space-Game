@@ -1,126 +1,103 @@
 import 'dart:ui';
 
+import 'package:wakelock/wakelock.dart';
+import 'package:flame/components/component.dart';
 import 'package:flutter/gestures.dart';
-import 'package:box2d_flame/box2d.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
-import 'package:flame/util.dart';
 
-import 'Gestures/GestureHandler.dart';
-import 'Gestures/Tappable.dart';
-import 'Backgrounds/Backgrounds.dart';
-import 'Backgrounds/Background.dart';
-import 'Interfaces/UserInterface.dart';
-import 'Structures/HollowRectangleStructure.dart';
-import 'Views/ViewTypes.dart';
-import 'Views/IntroView.dart';
-import 'Views/MainView.dart';
+import 'Mixins/HasGameRef.dart';
+import 'Data/SavedData.dart';
+import 'Data/DataObj.dart';
+import 'Components/Backgrounds/Backgrounds.dart';
+import 'Components/Backgrounds/Background.dart';
 
-class SpaceGameMain extends Game {
-  ViewTypes activeView = ViewTypes.INTRO;
-  ViewTypes lastView;
-  IntroView introView;
-  MainView mainView;
-  // HomeZoomableView homeZoomableView;
-  // MenuView menuView;
+enum GameState { TUTORIAL, PAUSED, RUNNING, AD }
 
-  World world;
-  Vector2 gravity = Vector2.zero();
-  Size screenSize;
-  num tileSize;
-  Background background;
-  UserInterface userInterface;
+class SpaceGame extends BaseGame {
+  GameState state;
+  Object rawData;
+  DataObj data;
 
-  // NOTE: temporary objects
-  HollowRectangleStructure box;
-
-  // Should probably use this eventually
-  // final int scale = 5;
-
-  // UI Coverage in Rects - for determining tap event locations
-  // The Object - and it's coverage as Rect
-  Map<String, Map<Tappable, Rect>> gestureCoverage = {};
-
-  SpaceGameMain() {
-    world = World.withPool(gravity, DefaultWorldPool(100, 10));
-
-    // Game initialize
-    initialize();
+  SpaceGame() {
+    _initialize();
   }
 
-  Future initialize() async {
-    // resize once initialize dimensions have loaded
-    resize(await Flame.util.initialDimensions());
+  void _initialize() async {
+    // load images
+    await Flame.images.loadAll([
+      // backgrounds
+      'bgs/space_tall.png',
+      'bgs/plain_tall.png',
+      // interface items
+      'interfaces/interface_bar.png',
+      'interfaces/alliance.png',
+      'interfaces/cash.png',
+      'interfaces/chat.png',
+      'interfaces/crystal.png',
+      'interfaces/gems.png',
+      'interfaces/home.png',
+      'interfaces/level.png',
+      'interfaces/metal.png',
+      'interfaces/shop.png',
+      'interfaces/gametitle.png',
+      'interfaces/playbutton.png',
+      // structures
+      'structures/structure_horizontal_rectangle_shell.png',
+      'structures/structure_vertical_rectangle_shell.png',
+    ]);
 
-    // Setup tap gesture capabilities
-    GestureHandler gestureHandler = GestureHandler(this);
-    TapGestureRecognizer tap = TapGestureRecognizer();
-    tap.onTapDown = gestureHandler.onTapDown;
-    tap.onTapUp = gestureHandler.onTapUp;
-    Util().addGestureRecognizer(tap);
+    // load the raw saved data
+    rawData = await SavedData.load();
 
-    // init views
-    introView = IntroView(this);
-    mainView = MainView(this);
-    // homeZoomableView = HomeZoomableView(this);
-    // menuView = MenuView(this);
+    // set the data property - an obj type which we can access the fields of a save
+    data = rawData as DataObj;
+    print("the id of this account is: " + data.id);
+    print("the optons number of this account are: " +
+        data.options.someNumber.toString());
 
-    // Create and draw the background
-    background = Background(this, bg: Backgrounds.SPACE);
-
-    box = HollowRectangleStructure(
-      this,
-      Size(200, 350),
-      Vector2(100, 100),
-    );
-
-    // Create and draw the user interface
-    userInterface = UserInterface(this);
+    // data etc is done loading, now startup the game
+    _startup(showTutorial: data.showTutorial, state: GameState.RUNNING);
   }
 
-  void resize(Size size) {
-    screenSize = size;
-    tileSize = screenSize.width / 9;
+  void _startup({showTutorial: bool, state: GameState}) {
+    print("startup sequence begin");
+    this.state = state;
 
-    // Resize the Views
-    introView?.resize();
-    mainView?.resize();
-    // homeZoomableView?.resize();
-    // menuView?.resize();
-
-    // Resize actual game widget
-    super.resize(size);
-  }
-
-  // Wall wall;
-  @override
-  void render(Canvas canvas) {
-    if (screenSize == null) {
-      return;
-    }
-
-    // Save the current canvas state
-    canvas.save();
-
-    // Render whatever view we currently have active
-    if (activeView == ViewTypes.INTRO) {
-      introView?.render(canvas);
-    } else if (activeView == ViewTypes.MAIN) {
-      mainView?.render(canvas);
-    }
-
-    // Restore the canvas since we're done with it
-    canvas.restore();
+    add(Background(bg: Backgrounds.SPACE));
   }
 
   @override
-  void update(double time) {
-    // Physics - maybe want to do something with this eventually?
-    // world.stepDt(time, 100, 100);
+  bool debugMode() => true;
 
-    // Update the user interface
-    // Do I need this?
-    // userInterface?.update(time);
-    // super.update(time);
+  @override
+  void preAdd(Component c) {
+    if (c is HasGameRef) {
+      (c as HasGameRef).gameRef = this;
+    }
+
+    super.preAdd(c);
+  }
+
+  @override
+  void render(Canvas c) {
+    // print("render called");
+    super.render(c);
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+  }
+
+  @override
+  void lifecycleStateChange(AppLifecycleState state) {
+    if (state != AppLifecycleState.resumed) {
+      this.state = GameState.PAUSED;
+      Wakelock.disable();
+    } else {
+      this.state = GameState.RUNNING;
+      Wakelock.enable();
+    }
   }
 }

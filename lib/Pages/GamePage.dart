@@ -9,7 +9,7 @@ class GamePage extends StatelessWidget implements HasLayoutGroup {
       : super(key: key);
   final LayoutGroup layoutGroup;
   final VoidCallback onLayoutToggle;
-  final SpaceGameMain game;
+  final SpaceGame game;
 
   // Widget _buildPage({int index, Color color}) {
   //   return Container(

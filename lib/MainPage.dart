@@ -16,7 +16,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  SpaceGameMain _game = SpaceGameMain();
+  SpaceGame _game = SpaceGame();
   LayoutGroup _layoutGroup = LayoutGroup.nonScrollable;
   LayoutType _layoutSelection1 = LayoutType.gameView;
   LayoutType _layoutSelection2 = LayoutType.pageView;
