@@ -13,7 +13,10 @@ DataObj _$DataObjFromJson(Map<String, dynamic> json) {
     ..username = json['username'] as String
     ..options = json['options'] == null
         ? null
-        : OptionsData.fromJson(json['options'] as Map<String, dynamic>);
+        : OptionsData.fromJson(json['options'] as Map<String, dynamic>)
+    ..grid = json['grid'] == null
+        ? null
+        : GridData.fromJson(json['grid'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$DataObjToJson(DataObj instance) => <String, dynamic>{
@@ -21,4 +24,5 @@ Map<String, dynamic> _$DataObjToJson(DataObj instance) => <String, dynamic>{
       'id': instance.id,
       'username': instance.username,
       'options': instance.options,
+      'grid': instance.grid,
     };

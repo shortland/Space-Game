@@ -21,9 +21,13 @@ class SpaceGame extends BaseGame {
   GameState state;
   Object rawData;
   DataObj data;
+
   // UI Coverage in Rects - for determining tap event locations
   // The Object - and it's coverage as Rect
   Map<String, Map<Tappable, Rect>> gestureCoverage = {};
+
+  Size screenSize;
+  double tileSize;
 
   SpaceGame() {
     _initialize();
@@ -121,6 +125,14 @@ class SpaceGame extends BaseGame {
   @override
   void update(double dt) {
     super.update(dt);
+  }
+
+  @override
+  void resize(Size size) {
+    screenSize = size;
+    tileSize = screenSize.width / 9;
+
+    super.resize(size);
   }
 
   @override
