@@ -3,9 +3,24 @@
 //
 
 #import "GeneratedPluginRegistrant.h"
+
+#if __has_include(<audioplayers/AudioplayersPlugin.h>)
 #import <audioplayers/AudioplayersPlugin.h>
-#import <path_provider/PathProviderPlugin.h>
-#import <sensors/SensorsPlugin.h>
+#else
+@import audioplayers;
+#endif
+
+#if __has_include(<path_provider/FLTPathProviderPlugin.h>)
+#import <path_provider/FLTPathProviderPlugin.h>
+#else
+@import path_provider;
+#endif
+
+#if __has_include(<sensors/FLTSensorsPlugin.h>)
+#import <sensors/FLTSensorsPlugin.h>
+#else
+@import sensors;
+#endif
 
 @implementation GeneratedPluginRegistrant
 
