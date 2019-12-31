@@ -16,6 +16,7 @@ class OptionsData {
 
   factory OptionsData.fromJson(Map<String, dynamic> json) =>
       _$OptionsDataFromJson(json);
+
   Map<String, dynamic> toJson() => _$OptionsDataToJson(this);
 
   OptionsData clone() {

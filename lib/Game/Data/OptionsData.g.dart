@@ -15,7 +15,7 @@ OptionsData _$OptionsDataFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$OptionsDataToJson(OptionsData instance) =>
     <String, dynamic>{
-      'enabledSound': instance.enableSound,
+      'enableSound': instance.enableSound,
       'showOffline': instance.showOffline,
       'someNumber': instance.someNumber,
     };

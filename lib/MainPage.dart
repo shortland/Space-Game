@@ -9,14 +9,17 @@ import 'Pages/PageViewPage.dart';
 import 'Pages/GamePage.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({Key key}) : super(key: key);
+  final SpaceGame game;
+  MainPage({Key key, this.game}) : super(key: key);
 
   @override
-  _MainPageState createState() => _MainPageState();
+  _MainPageState createState() => _MainPageState(game);
 }
 
 class _MainPageState extends State<MainPage> {
-  SpaceGame _game = SpaceGame();
+  final SpaceGame _game;
+  _MainPageState(this._game);
+
   LayoutGroup _layoutGroup = LayoutGroup.nonScrollable;
   LayoutType _layoutSelection1 = LayoutType.gameView;
   LayoutType _layoutSelection2 = LayoutType.pageView;

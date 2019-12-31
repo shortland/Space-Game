@@ -1,16 +1,19 @@
 import 'dart:ui';
 
-import 'package:wakelock/wakelock.dart';
 import 'package:flame/components/component.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame/util.dart';
+import 'package:flame/position.dart';
+import 'package:flutter/services.dart';
+import 'package:wakelock/wakelock.dart';
 
 import 'Mixins/HasGameRef.dart';
 import 'Data/SavedData.dart';
 import 'Data/DataObj.dart';
 import 'Components/Backgrounds/Backgrounds.dart';
 import 'Components/Backgrounds/Background.dart';
+import 'Gestures/Tappable.dart';
 
 enum GameState { TUTORIAL, PAUSED, RUNNING, AD }
 
@@ -18,12 +21,19 @@ class SpaceGame extends BaseGame {
   GameState state;
   Object rawData;
   DataObj data;
+  // UI Coverage in Rects - for determining tap event locations
+  // The Object - and it's coverage as Rect
+  Map<String, Map<Tappable, Rect>> gestureCoverage = {};
 
   SpaceGame() {
     _initialize();
   }
 
   void _initialize() async {
+    // await flameUtil.fullScreen();
+    await Util().setOrientation(DeviceOrientation.portraitUp);
+    resize(await Flame.util.initialDimensions());
+
     // load images
     await Flame.images.loadAll([
       // backgrounds
@@ -56,6 +66,13 @@ class SpaceGame extends BaseGame {
     print("the optons number of this account are: " +
         data.options.someNumber.toString());
 
+    // // Setup tap gesture capabilities
+    // GestureHandler gestureHandler = GestureHandler(this);
+    // TapGestureRecognizer tap = TapGestureRecognizer();
+    // tap.onTapDown = gestureHandler.onTapDown;
+    // tap.onTapUp = gestureHandler.onTapUp;
+    // Util().addGestureRecognizer(tap);
+
     // data etc is done loading, now startup the game
     _startup(showTutorial: data.showTutorial, state: GameState.RUNNING);
   }
@@ -67,12 +84,28 @@ class SpaceGame extends BaseGame {
     add(Background(bg: Backgrounds.SPACE));
   }
 
+  bool handlingClick() {
+    return state == GameState.RUNNING || state == GameState.TUTORIAL;
+  }
+
+  void startInput(Position p, int dt) {
+    if (state == GameState.TUTORIAL || state == GameState.PAUSED) {
+      return;
+    }
+
+    if (p != null) {
+      // reset some things we might need
+    }
+  }
+
   @override
   bool debugMode() => true;
 
   @override
   void preAdd(Component c) {
+    print("addibg a component c " + c.toString());
     if (c is HasGameRef) {
+      print("component c has game ref!, setting its ref to this.");
       (c as HasGameRef).gameRef = this;
     }
 

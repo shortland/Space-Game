@@ -1,9 +1,10 @@
 import 'package:flutter/gestures.dart';
 
+import '../Mixins/HasGameRef.dart';
 import '../SpaceGame.dart';
 
 class GestureHandler {
-  final SpaceGameMain game;
+  final SpaceGame game;
 
   GestureHandler(this.game) {
     game.gestureCoverage = {

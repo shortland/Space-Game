@@ -1,50 +1,48 @@
 import 'dart:ui';
 
 import 'package:box2d_flame/box2d.dart';
+import 'package:flame/components/mixins/resizable.dart';
 
-import '../SpaceGame.dart';
+import '../../Mixins/HasGameRef.dart';
 import '../Structures/Structure.dart';
-import '../PhysicalObjects/RectangularPhysicalObject.dart';
+import '../WorldObjects/RectangularWorldObject.dart';
 
-class HollowRectangleStructure extends Structure {
+class HollowRectangleStructure extends Structure with HasGameRef, Resizable {
   double _wallWidth;
 
-  HollowRectangleStructure(SpaceGameMain game, Size size, Vector2 position,
-      {double wallWidth})
-      : super(game, size, position) {
+  HollowRectangleStructure(Size size, Vector2 position, {double wallWidth})
+      : super(size, position) {
     _wallWidth = wallWidth ?? 10;
 
-    this.physicalObjects.addAll([
+    this.worldObjects.addAll([
       // ceiling
-      RectangularPhysicalObject(game, Size(size.width, _wallWidth), position,
+      RectangularWorldObject(Size(size.width, _wallWidth), position,
           'structures/structure_horizontal_rectangle_shell.png'),
       // right side
-      RectangularPhysicalObject(
-          game,
+      RectangularWorldObject(
           Size(_wallWidth, size.height),
           Vector2(position.x + (size.width - _wallWidth), position.y),
           'structures/structure_vertical_rectangle_shell.png'),
       // floor
-      RectangularPhysicalObject(
-          game,
+      RectangularWorldObject(
           Size(size.width, _wallWidth),
           Vector2(position.x, position.y + (size.height - _wallWidth)),
           'structures/structure_horizontal_rectangle_shell.png'),
       // left side
-      RectangularPhysicalObject(game, Size(_wallWidth, size.height), position,
+      RectangularWorldObject(Size(_wallWidth, size.height), position,
           'structures/structure_vertical_rectangle_shell.png')
     ]);
   }
 
   @override
-  void render(Canvas canvas) {
-    for (var obj in physicalObjects) {
-      obj?.render(canvas);
+  void render(Canvas c) {
+    for (var obj in worldObjects) {
+      obj?.render(c);
     }
   }
 
   @override
-  void update(double time) {}
+  void update(double dt) {}
 
   @override
   void resize(Size size) {}
