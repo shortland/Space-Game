@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flame/sprite.dart';
 
-import 'package:spacegame/SpaceGame.dart';
-import 'package:spacegame/Backgrounds/Backgrounds.dart';
+import '../SpaceGame.dart';
+import '../Backgrounds/Backgrounds.dart';
 
 class Background {
   final SpaceGameMain game;

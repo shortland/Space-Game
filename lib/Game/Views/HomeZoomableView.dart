@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flame/sprite.dart';
 
-import 'package:spacegame/SpaceGame.dart';
+import '../SpaceGame.dart';
 
 class HomeZoomableView {
   final SpaceGameMain game;

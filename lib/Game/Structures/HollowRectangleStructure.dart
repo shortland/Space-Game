@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:box2d_flame/box2d.dart';
 
-import 'package:spacegame/SpaceGame.dart';
-import 'package:spacegame/Structures/Structure.dart';
-import 'package:spacegame/PhysicalObjects/RectangularPhysicalObject.dart';
+import '../SpaceGame.dart';
+import '../Structures/Structure.dart';
+import '../PhysicalObjects/RectangularPhysicalObject.dart';
 
 class HollowRectangleStructure extends Structure {
   double _wallWidth;

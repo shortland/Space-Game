@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:logger/logger.dart';
 import 'package:flame/sprite.dart';
 
-import 'package:spacegame/Gestures/Tappable.dart';
+import '../Gestures/Tappable.dart';
 
 class ImageButton implements Tappable {
   // UI Sprite

@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:logger/logger.dart';
 
-import 'package:spacegame/SpaceGame.dart';
-import 'package:spacegame/Interfaces/ImageButton.dart';
+import '../SpaceGame.dart';
+import '../Interfaces/ImageButton.dart';
 
 class BottomBarTabButton extends ImageButton {
   final SpaceGameMain game;

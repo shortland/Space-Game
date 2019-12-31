@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:spacegame/Game/SpaceGame.dart';
 
 import 'Pages/BaselinePage.dart';
 import 'Pages/ExpandedPage.dart';
 import 'LayoutTypes.dart';
 import 'Pages/ListPage.dart';
 import 'Pages/PageViewPage.dart';
+import 'Pages/GamePage.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key}) : super(key: key);
@@ -14,8 +16,9 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  SpaceGameMain _game = SpaceGameMain();
   LayoutGroup _layoutGroup = LayoutGroup.nonScrollable;
-  LayoutType _layoutSelection1 = LayoutType.baseline;
+  LayoutType _layoutSelection1 = LayoutType.gameView;
   LayoutType _layoutSelection2 = LayoutType.pageView;
   LayoutType get _layoutSelection => _layoutGroup == LayoutGroup.nonScrollable
       ? _layoutSelection1
@@ -43,8 +46,8 @@ class _MainPageState extends State<MainPage> {
     if (_layoutGroup == LayoutGroup.nonScrollable) {
       _onLayoutSelected(LayoutType.values[index]);
     } else {
-      _onLayoutSelected(
-          LayoutType.values[index + 2]); // Number of items on first botbar page
+      // `+ X` : X number of pages on first botbar page that are nonscollables
+      _onLayoutSelected(LayoutType.values[index + 3]);
     }
   }
 
@@ -75,6 +78,10 @@ class _MainPageState extends State<MainPage> {
 
   Widget _buildBody() {
     return <LayoutType, WidgetBuilder>{
+      LayoutType.gameView: (_) => GamePage(
+          layoutGroup: _layoutGroup,
+          onLayoutToggle: _onLayoutGroupToggle,
+          game: _game),
       LayoutType.baseline: (_) => BaselinePage(
           layoutGroup: _layoutGroup, onLayoutToggle: _onLayoutGroupToggle),
       LayoutType.expanded: (_) => ExpandedPage(
@@ -91,6 +98,7 @@ class _MainPageState extends State<MainPage> {
       return BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: [
+          _buildItem(icon: Icons.games, layoutSelection: LayoutType.gameView),
           _buildItem(
               icon: Icons.format_size, layoutSelection: LayoutType.baseline),
           _buildItem(

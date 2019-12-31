@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:box2d_flame/box2d.dart';
 import 'package:flame/sprite.dart';
 
-import 'package:spacegame/PhysicalObjects/PhysicalObject.dart';
-import 'package:spacegame/SpaceGame.dart';
+import '../PhysicalObjects/PhysicalObject.dart';
+import '../SpaceGame.dart';
 
 class RectangularPhysicalObject extends PhysicalObject {
   RectangularPhysicalObject(

@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:spacegame/SpaceGame.dart';
-import 'package:spacegame/Backgrounds/Backgrounds.dart';
-import 'package:spacegame/Backgrounds/Background.dart';
+import '../SpaceGame.dart';
+import '../Backgrounds/Backgrounds.dart';
+import '../Backgrounds/Background.dart';
 
 class MainView {
   final SpaceGameMain game;

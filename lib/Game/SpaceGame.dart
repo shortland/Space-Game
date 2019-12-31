@@ -6,22 +6,17 @@ import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/util.dart';
 
-import 'package:spacegame/Gestures/GestureHandler.dart';
-import 'package:spacegame/Gestures/Tappable.dart';
-import 'package:spacegame/Backgrounds/Backgrounds.dart';
-import 'package:spacegame/Backgrounds/Background.dart';
-import 'package:spacegame/Interfaces/UserInterface.dart';
-import 'package:spacegame/Structures/HollowRectangleStructure.dart';
-import 'package:spacegame/Views/ViewTypes.dart';
-import 'package:spacegame/Views/IntroView.dart';
-import 'package:spacegame/Views/MainView.dart';
-// import 'package:spacegame/Views/HomeZoomableView.dart';
-// import 'package:spacegame/Views/MenuView.dart';
+import 'Gestures/GestureHandler.dart';
+import 'Gestures/Tappable.dart';
+import 'Backgrounds/Backgrounds.dart';
+import 'Backgrounds/Background.dart';
+import 'Interfaces/UserInterface.dart';
+import 'Structures/HollowRectangleStructure.dart';
+import 'Views/ViewTypes.dart';
+import 'Views/IntroView.dart';
+import 'Views/MainView.dart';
 
 class SpaceGameMain extends Game {
-  static const int WORLD_POOL_SIZE = 100;
-  static const int WORLD_POOL_CONTAINER_SIZE = 10;
-
   ViewTypes activeView = ViewTypes.INTRO;
   ViewTypes lastView;
   IntroView introView;
@@ -47,8 +42,7 @@ class SpaceGameMain extends Game {
   Map<String, Map<Tappable, Rect>> gestureCoverage = {};
 
   SpaceGameMain() {
-    world = World.withPool(
-        gravity, DefaultWorldPool(WORLD_POOL_SIZE, WORLD_POOL_CONTAINER_SIZE));
+    world = World.withPool(gravity, DefaultWorldPool(100, 10));
 
     // Game initialize
     initialize();

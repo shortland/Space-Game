@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flame/sprite.dart';
 
-import 'package:spacegame/SpaceGame.dart';
-import 'package:spacegame/Interfaces/BottomBarTabButton.dart';
+import '../SpaceGame.dart';
+import '../Interfaces/BottomBarTabButton.dart';
 
 class UserInterface {
   final SpaceGameMain game;

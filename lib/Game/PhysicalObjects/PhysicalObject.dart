@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:box2d_flame/box2d.dart';
 import 'package:flame/sprite.dart';
 
-import 'package:spacegame/SpaceGame.dart';
+import '../SpaceGame.dart';
 
 abstract class PhysicalObject {
   final SpaceGameMain game;

@@ -2,12 +2,12 @@ import 'dart:ui';
 
 import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
-import 'package:spacegame/Interfaces/ImageButton.dart';
 
-import 'package:spacegame/SpaceGame.dart';
-import 'package:spacegame/Backgrounds/Backgrounds.dart';
-import 'package:spacegame/Backgrounds/Background.dart';
-import 'package:spacegame/Views/ViewTypes.dart';
+import '../Interfaces/ImageButton.dart';
+import '../SpaceGame.dart';
+import '../Backgrounds/Backgrounds.dart';
+import '../Backgrounds/Background.dart';
+import '../Views/ViewTypes.dart';
 
 class IntroView {
   final SpaceGameMain game;
