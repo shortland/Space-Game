@@ -1,8 +1,11 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 import 'Game/SpaceGame.dart';
 import 'MainPage.dart';
+
+/// WIP https://flutterbyexample.com/set-up-app-loading/
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
