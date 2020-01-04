@@ -21,11 +21,11 @@ class GamePage extends StatelessWidget implements HasLayoutGroup {
   @override
   Widget build(BuildContext context) {
     // Setup tap gesture capabilities
-    GestureHandler gestureHandler = GestureHandler(game);
-    TapGestureRecognizer tap = TapGestureRecognizer();
-    tap.onTapDown = gestureHandler.onTapDown;
-    tap.onTapUp = gestureHandler.onTapUp;
-    Util().addGestureRecognizer(tap);
+    // GestureHandler gestureHandler = GestureHandler(game);
+    // TapGestureRecognizer tap = TapGestureRecognizer();
+    // tap.onTapDown = gestureHandler.onTapDown;
+    // tap.onTapUp = gestureHandler.onTapUp;
+    // Util().addGestureRecognizer(tap);
 
     return Scaffold(
       appBar: MainAppBar(

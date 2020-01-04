@@ -24,13 +24,17 @@ class SpaceGame extends BaseGame {
   GameState state;
   Object rawData;
   DataObj data;
-  GridData gridData;
+
+  // don't access _gridData, it's out of date once GridBuilding is created...
+  // access through there.
+  GridData _gridData;
   GridBuilding gridBuilding;
 
   // UI Coverage in Rects - for determining tap event locations
   // The Object - and it's coverage as Rect
   Map<String, Map<Tappable, Rect>> gestureCoverage = {};
 
+  double barHeight;
   Size screenSize;
   double tileSize;
 
@@ -76,10 +80,10 @@ class SpaceGame extends BaseGame {
     print("the id of this account is: " + data.id);
     print("the optons.someNumber of this account are: " +
         data.options.someNumber.toString());
-    print("the gridData is: " + data.grid.toJson().toString());
+    print("the _gridData is: " + data.grid.toJson().toString());
 
-    // save the grid reference in the game obj for easier access
-    gridData = data.grid.clone();
+    // create the grid from the local saved data
+    _gridData = data.grid.clone();
 
     // // Setup tap gesture capabilities
     // GestureHandler gestureHandler = GestureHandler(this);
@@ -96,11 +100,15 @@ class SpaceGame extends BaseGame {
     print("startup sequence begin");
     this.state = state;
 
+    // enable wakelock initially
+    print("enabling wakelock");
+    Wakelock.enable();
+
     // add the background
     add(Background(bg: Backgrounds.SPACE));
 
     // add the grid
-    gridBuilding = GridBuilding(gridData, screenSize);
+    gridBuilding = GridBuilding(_gridData, screenSize);
     gridBuilding.createGrid();
     for (HollowRectangleStructure struct in gridBuilding.structs) {
       print("trying to add hollow rectangular structure" + struct.toString());
@@ -122,14 +130,14 @@ class SpaceGame extends BaseGame {
     }
   }
 
-  @override
-  bool debugMode() => true;
+  // @override
+  // bool debugMode() => false;
 
   @override
   void preAdd(Component c) {
-    print("addibg a component c " + c.toString());
+    // print("addibg a component c " + c.toString());
     if (c is HasGameRef) {
-      print("component c has game ref!, setting its ref to this.");
+      // print("component c has game ref!, setting its ref to this.");
       (c as HasGameRef).gameRef = this;
     }
 
@@ -148,19 +156,36 @@ class SpaceGame extends BaseGame {
 
   @override
   void resize(Size size) {
-    screenSize = size;
-    tileSize = screenSize.width / 9;
+    print("actual height is: " + size.height.toString());
 
-    super.resize(size);
+    if (screenSize != null) {
+      if (size.height > screenSize.height) {
+        print("ignoring this height resize as it seems to have become larger?");
+
+        super.resize(screenSize);
+        return;
+      }
+    }
+
+    screenSize = Size(size.width, size.height);
+    tileSize = screenSize.width / 9.0;
+
+    print("new height is: " + screenSize.height.toString());
+
+    super.resize(screenSize);
   }
 
   @override
   void lifecycleStateChange(AppLifecycleState state) {
     if (state != AppLifecycleState.resumed) {
       this.state = GameState.PAUSED;
+
+      print("disabling wakelock");
       Wakelock.disable();
     } else {
       this.state = GameState.RUNNING;
+
+      print("enabling wakelock");
       Wakelock.enable();
     }
   }

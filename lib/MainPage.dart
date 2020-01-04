@@ -18,6 +18,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final SpaceGame _game;
+  double botBarHeight;
   _MainPageState(this._game);
 
   LayoutGroup _layoutGroup = LayoutGroup.nonScrollable;
@@ -56,9 +57,9 @@ class _MainPageState extends State<MainPage> {
 
   Color _colorTabMatching({LayoutType layoutSelection}) {
     if (_layoutGroup == LayoutGroup.nonScrollable) {
-      return _layoutSelection1 == layoutSelection ? Colors.orange : Colors.grey;
+      return _layoutSelection1 == layoutSelection ? Colors.white : Colors.grey;
     } else {
-      return _layoutSelection2 == layoutSelection ? Colors.orange : Colors.grey;
+      return _layoutSelection2 == layoutSelection ? Colors.white : Colors.grey;
     }
   }
 
@@ -80,6 +81,10 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget _buildBody() {
+    // set the height of the bottom bar (1/9 of the screen width)
+    botBarHeight = (MediaQuery.of(context).size.width / 9.0) + 10.0;
+    _game.barHeight = botBarHeight;
+
     return <LayoutType, WidgetBuilder>{
       LayoutType.gameView: (_) => GamePage(
           layoutGroup: _layoutGroup,
@@ -99,16 +104,16 @@ class _MainPageState extends State<MainPage> {
   Widget _buildBottomNavigationBar() {
     if (_layoutGroup == LayoutGroup.nonScrollable) {
       return BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: [
-          _buildItem(icon: Icons.games, layoutSelection: LayoutType.gameView),
-          _buildItem(
-              icon: Icons.format_size, layoutSelection: LayoutType.baseline),
-          _buildItem(
-              icon: Icons.line_weight, layoutSelection: LayoutType.expanded),
-        ],
-        onTap: _onSelectTab,
-      );
+          type: BottomNavigationBarType.fixed,
+          items: [
+            _buildItem(icon: Icons.games, layoutSelection: LayoutType.gameView),
+            _buildItem(
+                icon: Icons.format_size, layoutSelection: LayoutType.baseline),
+            _buildItem(
+                icon: Icons.line_weight, layoutSelection: LayoutType.expanded),
+          ],
+          onTap: _onSelectTab,
+          backgroundColor: Color.fromRGBO(8, 17, 75, 1.0));
     } else {
       return BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -127,8 +132,11 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildBody(),
-      bottomNavigationBar: _buildBottomNavigationBar(),
-    );
+        body: _buildBody(),
+        bottomNavigationBar: SizedBox(
+          // race condition?
+          height: botBarHeight,
+          child: _buildBottomNavigationBar(),
+        ));
   }
 }

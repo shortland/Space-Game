@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:spacegame/Game/SpaceGame.dart';
 
+import 'Game/SpaceGame.dart';
 import 'MainPage.dart';
 
 void main() => runApp(new MyApp());
@@ -16,9 +16,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Space Game',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
+        primarySwatch: Colors.indigo,
       ),
       home: MainPage(game: Game.game),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
