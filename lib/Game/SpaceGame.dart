@@ -38,7 +38,7 @@ class SpaceGame extends BaseGame {
   // The Object - and it's coverage as Rect
   Map<String, Map<Tappable, Rect>> gestureCoverage = {};
 
-  double barHeight;
+  // double barHeight;
   Size screenSize;
   double tileSize;
 
@@ -112,7 +112,7 @@ class SpaceGame extends BaseGame {
     Wakelock.enable();
 
     // add the background
-    add(Background(bg: Backgrounds.SPACE));
+    // add(Background(bg: Backgrounds.SPACE));
 
     // add the grid
     gridBuilding = GridBuilding(_gridData, screenSize);
