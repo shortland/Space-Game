@@ -1,9 +1,17 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 import 'Game/SpaceGame.dart';
 import 'MainPage.dart';
 
-void main() => runApp(new MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // remove the status bar
+  SystemChrome.setEnabledSystemUIOverlays([]);
+
+  runApp(new MyApp());
+}
 
 class Game {
   static SpaceGame game = SpaceGame();

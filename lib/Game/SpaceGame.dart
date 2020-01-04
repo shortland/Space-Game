@@ -1,14 +1,17 @@
 import 'dart:ui';
 
-import 'package:flame/components/component.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/util.dart';
+import 'package:flame/sprite.dart';
 import 'package:flame/position.dart';
+import 'package:flame/components/component.dart';
 import 'package:flutter/services.dart';
-import 'package:spacegame/Game/Components/Structures/HollowRectangleStructure.dart';
+import 'package:flutter/gestures.dart';
 import 'package:wakelock/wakelock.dart';
 
+import 'package:spacegame/Game/Components/Structures/HollowRectangleStructure.dart';
+import 'package:spacegame/Game/Components/Buildings/MainBaseBuilding.dart';
 import 'Mixins/HasGameRef.dart';
 import 'Data/SavedData.dart';
 import 'Data/DataObj.dart';
@@ -17,6 +20,7 @@ import 'Components/Backgrounds/Background.dart';
 import 'Gestures/Tappable.dart';
 import 'Data/GridData.dart';
 import 'Components/Buildings/GridBuilding.dart';
+import 'Components/Structures/AnimatedStructure.dart';
 
 enum GameState { TUTORIAL, PAUSED, RUNNING, AD }
 
@@ -70,6 +74,9 @@ class SpaceGame extends BaseGame {
       // structures
       'structures/structure_horizontal_rectangle_shell.png',
       'structures/structure_vertical_rectangle_shell.png',
+      // buildings
+      'buildings/someroom_bg_one.png',
+      'buildings/someroom_bg_anim.png',
     ]);
 
     // load the raw saved data
@@ -110,10 +117,20 @@ class SpaceGame extends BaseGame {
     // add the grid
     gridBuilding = GridBuilding(_gridData, screenSize);
     gridBuilding.createGrid();
-    for (HollowRectangleStructure struct in gridBuilding.structs) {
+    for (var struct2 in gridBuilding.roomStructs) {
+      // Rect position = Rect.fromLTWH(50, 50, 128, 50);
+      print("trying to add real struct" + struct2.toString());
+      add(struct2);
+    }
+
+    for (var struct in gridBuilding.structs) {
       print("trying to add hollow rectangular structure" + struct.toString());
       add(struct);
     }
+  }
+
+  void onTapUp(TapUpDetails d) {
+    print("tapped on " + d.localPosition.toString());
   }
 
   bool handlingClick() {
@@ -129,9 +146,6 @@ class SpaceGame extends BaseGame {
       // reset some things we might need
     }
   }
-
-  // @override
-  // bool debugMode() => false;
 
   @override
   void preAdd(Component c) {

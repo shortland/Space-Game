@@ -1,13 +1,16 @@
 import 'dart:ui';
 
 import 'package:box2d_flame/box2d.dart';
+import 'package:spacegame/Game/Components/Buildings/MainBaseBuilding.dart';
 
 import 'Building.dart';
 import '../../Mixins/HasGameRef.dart';
 import '../../Data/GridData.dart';
 import '../Structures/HollowRectangleStructure.dart';
+import '../Structures/SolidRectangleStructure.dart';
 import '../../Grids/GridItem.dart';
 
+// this is temporary somewhat
 // like a controller class/obj for the structures
 class GridBuilding extends Building with HasGameRef {
   GridData grid;
@@ -17,6 +20,8 @@ class GridBuilding extends Building with HasGameRef {
 
   // for rendering from main game
   List<HollowRectangleStructure> structs = [];
+  // for real rendering from main game
+  List<dynamic> roomStructs = [];
 
   // for later access
   List<List<GridItem>> gridItems = [];
@@ -44,18 +49,27 @@ class GridBuilding extends Building with HasGameRef {
         // add to our gridItems list<list>>..
         gridItems[i].insert(j, gridItem);
 
-        // something like if gridItem != null then draw rectangle with green border?
-        Vector2 position = Vector2(j * gridItemSize.width,
-            size.height - ((i + 1) * (gridItemSize.height + 0)));
+        // real struct rendering
+        if (gridItem == null) {
+          // something like if gridItem != null then draw rectangle with green border?
+          Vector2 position = Vector2(j * gridItemSize.width,
+              size.height - ((i + 1) * (gridItemSize.height + 0)));
 
-        print("the size of the screen is w:" +
-            size.width.toString() +
-            ", h:" +
-            size.height.toString());
+          var rect = HollowRectangleStructure(gridItemSize, position,
+              wallWidth: gridWallWidth);
 
-        var rect = HollowRectangleStructure(gridItemSize, position,
-            wallWidth: gridWallWidth);
-        structs.add(rect);
+          structs.add(rect);
+        } else {
+          print("got a non null grid item, add to real struct list");
+
+          // something like if gridItem != null then draw rectangle with green border?
+          Vector2 position = Vector2(j * gridItemSize.width,
+              size.height - ((i + 1) * (gridItemSize.height + 0)));
+
+          var rect = SolidRectangleStructure(gridItemSize, position);
+
+          roomStructs.add(rect);
+        }
 
         j++;
       }
