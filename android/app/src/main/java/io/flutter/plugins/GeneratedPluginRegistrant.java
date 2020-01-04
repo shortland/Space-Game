@@ -4,6 +4,8 @@ import io.flutter.plugin.common.PluginRegistry;
 import xyz.luan.audioplayers.AudioplayersPlugin;
 import io.flutter.plugins.pathprovider.PathProviderPlugin;
 import io.flutter.plugins.sensors.SensorsPlugin;
+import io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin;
+import wakelock.wakelock.WakelockPlugin;
 
 /**
  * Generated file. Do not edit.
@@ -16,6 +18,8 @@ public final class GeneratedPluginRegistrant {
     AudioplayersPlugin.registerWith(registry.registrarFor("xyz.luan.audioplayers.AudioplayersPlugin"));
     PathProviderPlugin.registerWith(registry.registrarFor("io.flutter.plugins.pathprovider.PathProviderPlugin"));
     SensorsPlugin.registerWith(registry.registrarFor("io.flutter.plugins.sensors.SensorsPlugin"));
+    SharedPreferencesPlugin.registerWith(registry.registrarFor("io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin"));
+    WakelockPlugin.registerWith(registry.registrarFor("wakelock.wakelock.WakelockPlugin"));
   }
 
   private static boolean alreadyRegisteredWith(PluginRegistry registry) {
