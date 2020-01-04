@@ -148,6 +148,9 @@ class SpaceGame extends BaseGame {
   }
 
   @override
+  Color backgroundColor() => Color.fromRGBO(0, 0, 0, 0.0);
+
+  @override
   void preAdd(Component c) {
     // print("addibg a component c " + c.toString());
     if (c is HasGameRef) {

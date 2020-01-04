@@ -56,57 +56,63 @@ class GamePage extends StatelessWidget implements HasLayoutGroup {
                   TableRow(
                     children: <Widget>[
                       Container(
+                          alignment: Alignment.topLeft,
                           child: IconTheme.merge(
-                        data: IconThemeData(
-                          size: tileSize * 0.7,
-                          color: Color.fromRGBO(255, 22, 255, 1.0),
-                        ),
-                        child: Icon(Icons.account_balance),
-                      )),
+                            data: IconThemeData(
+                              size: tileSize * 0.7,
+                              color: Color.fromRGBO(255, 22, 255, 1.0),
+                            ),
+                            child: Icon(Icons.account_balance),
+                          )),
                       Container(
+                          alignment: Alignment.topLeft,
                           child: IconTheme.merge(
-                        data: IconThemeData(
-                          size: tileSize * 0.7,
-                          color: Color.fromRGBO(22, 255, 255, 1.0),
-                        ),
-                        child: Icon(Icons.account_balance),
-                      )),
+                            data: IconThemeData(
+                              size: tileSize * 0.7,
+                              color: Color.fromRGBO(22, 255, 255, 1.0),
+                            ),
+                            child: Icon(Icons.account_balance),
+                          )),
                       Container(
+                          alignment: Alignment.topLeft,
                           child: IconTheme.merge(
-                        data: IconThemeData(
-                          size: tileSize * 0.7,
-                          color: Color.fromRGBO(255, 255, 22, 1.0),
-                        ),
-                        child: Icon(Icons.account_balance),
-                      )),
+                            data: IconThemeData(
+                              size: tileSize * 0.7,
+                              color: Color.fromRGBO(255, 255, 22, 1.0),
+                            ),
+                            child: Icon(Icons.account_balance),
+                          )),
                     ],
                   ),
                   TableRow(
                     children: <Widget>[
                       Container(
+                          alignment: Alignment.topLeft,
                           child: IconTheme.merge(
-                        data: IconThemeData(
-                          size: tileSize * 0.7,
-                          color: Color.fromRGBO(255, 22, 255, 1.0),
-                        ),
-                        child: Icon(Icons.account_balance),
-                      )),
+                            data: IconThemeData(
+                              size: tileSize * 0.7,
+                              color: Color.fromRGBO(255, 22, 255, 1.0),
+                            ),
+                            child: Icon(Icons.account_balance),
+                          )),
                       Container(
+                          alignment: Alignment.topLeft,
                           child: IconTheme.merge(
-                        data: IconThemeData(
-                          size: tileSize * 0.7,
-                          color: Color.fromRGBO(22, 255, 255, 1.0),
-                        ),
-                        child: Icon(Icons.account_balance),
-                      )),
+                            data: IconThemeData(
+                              size: tileSize * 0.7,
+                              color: Color.fromRGBO(22, 255, 255, 1.0),
+                            ),
+                            child: Icon(Icons.account_balance),
+                          )),
                       Container(
+                          alignment: Alignment.topLeft,
                           child: IconTheme.merge(
-                        data: IconThemeData(
-                          size: tileSize * 0.7,
-                          color: Color.fromRGBO(255, 255, 22, 1.0),
-                        ),
-                        child: Icon(Icons.account_balance),
-                      )),
+                            data: IconThemeData(
+                              size: tileSize * 0.7,
+                              color: Color.fromRGBO(255, 255, 22, 1.0),
+                            ),
+                            child: Icon(Icons.account_balance),
+                          )),
                     ],
                   ),
                 ],
