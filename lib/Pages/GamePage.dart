@@ -51,7 +51,7 @@ class GamePage extends StatelessWidget implements HasLayoutGroup {
               children: <Widget>[
                 SizedBox(
                   height: 24.0,
-                  width: 24.0,
+                  width: 48.0,
                   child: Row(children: <Widget>[
                     Align(
                       alignment: Alignment.topLeft,
@@ -61,6 +61,16 @@ class GamePage extends StatelessWidget implements HasLayoutGroup {
                           color: Color.fromRGBO(255, 10, 255, 1.0),
                         ),
                         child: Icon(Icons.account_balance),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: IconTheme.merge(
+                        data: IconThemeData(
+                          size: 24.0,
+                          color: Color.fromRGBO(10, 255, 255, 1.0),
+                        ),
+                        child: Icon(Icons.attach_money),
                       ),
                     ),
                   ]),
