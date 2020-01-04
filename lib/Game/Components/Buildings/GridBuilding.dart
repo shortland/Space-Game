@@ -53,7 +53,7 @@ class GridBuilding extends Building with HasGameRef {
         if (gridItem == null) {
           // something like if gridItem != null then draw rectangle with green border?
           Vector2 position = Vector2(j * gridItemSize.width,
-              size.height - ((i + 1) * (gridItemSize.height + 0)));
+              size.height - ((i + 0) * (gridItemSize.height + 0)));
 
           var rect = HollowRectangleStructure(gridItemSize, position,
               wallWidth: gridWallWidth);
@@ -64,7 +64,7 @@ class GridBuilding extends Building with HasGameRef {
 
           // something like if gridItem != null then draw rectangle with green border?
           Vector2 position = Vector2(j * gridItemSize.width,
-              size.height - ((i + 1) * (gridItemSize.height + 0)));
+              size.height - ((i + 0) * (gridItemSize.height + 0)));
 
           var rect = SolidRectangleStructure(gridItemSize, position);
 
@@ -81,16 +81,20 @@ class GridBuilding extends Building with HasGameRef {
       print("loaded a grid that's shorter than it can be. growing grid height");
       growGridHeightOnce();
     }
+
+    // Do it one last time such that it cover under the topbar
+    growGridHeightOnce();
   }
 
   void growGridHeightOnce() {
     gridItems.add([]);
 
+    // add each horizontal item (9 total horizontal)
     for (int i = 0; i < 9; i++) {
       gridItems[gridItems.length - 1].insert(i, null);
 
       Vector2 position = Vector2(i * gridItemSize.width,
-          size.height - ((gridItems.length) * (gridItemSize.height + 0)));
+          size.height - ((gridItems.length - 1) * (gridItemSize.height + 0)));
       structs.add(HollowRectangleStructure(gridItemSize, position,
           wallWidth: gridWallWidth));
     }

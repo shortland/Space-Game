@@ -18,7 +18,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final SpaceGame _game;
-  double botBarHeight;
+  // double botBarHeight;
   _MainPageState(this._game);
 
   LayoutGroup _layoutGroup = LayoutGroup.nonScrollable;
@@ -82,8 +82,8 @@ class _MainPageState extends State<MainPage> {
 
   Widget _buildBody() {
     // set the height of the bottom bar (1/9 of the screen width)
-    botBarHeight = (MediaQuery.of(context).size.width / 9.0) + 10.0;
-    _game.barHeight = botBarHeight;
+    // botBarHeight = (MediaQuery.of(context).size.width / 9.0) + 10.0;
+    // _game.barHeight = botBarHeight;
 
     return <LayoutType, WidgetBuilder>{
       LayoutType.gameView: (_) => GamePage(
@@ -133,9 +133,8 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: _buildBody(),
-        bottomNavigationBar: SizedBox(
-          // race condition?
-          height: botBarHeight,
+        bottomNavigationBar: Container(
+          // height: botBarHeight,
           child: _buildBottomNavigationBar(),
         ));
   }
