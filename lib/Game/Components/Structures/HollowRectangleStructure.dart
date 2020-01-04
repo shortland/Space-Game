@@ -10,6 +10,8 @@ import '../WorldObjects/RectangularWorldObject.dart';
 class HollowRectangleStructure extends Structure with HasGameRef, Resizable {
   double _wallWidth;
 
+  /// Position is the top left corner of the object,
+  /// its rendered given that starting point.
   HollowRectangleStructure(Size size, Vector2 position, {double wallWidth})
       : super(size, position) {
     _wallWidth = wallWidth ?? 10;

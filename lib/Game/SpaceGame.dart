@@ -6,6 +6,7 @@ import 'package:flame/game.dart';
 import 'package:flame/util.dart';
 import 'package:flame/position.dart';
 import 'package:flutter/services.dart';
+import 'package:spacegame/Game/Components/Structures/HollowRectangleStructure.dart';
 import 'package:wakelock/wakelock.dart';
 
 import 'Mixins/HasGameRef.dart';
@@ -14,6 +15,8 @@ import 'Data/DataObj.dart';
 import 'Components/Backgrounds/Backgrounds.dart';
 import 'Components/Backgrounds/Background.dart';
 import 'Gestures/Tappable.dart';
+import 'Data/GridData.dart';
+import 'Components/Buildings/GridBuilding.dart';
 
 enum GameState { TUTORIAL, PAUSED, RUNNING, AD }
 
@@ -21,6 +24,8 @@ class SpaceGame extends BaseGame {
   GameState state;
   Object rawData;
   DataObj data;
+  GridData gridData;
+  GridBuilding gridBuilding;
 
   // UI Coverage in Rects - for determining tap event locations
   // The Object - and it's coverage as Rect
@@ -36,6 +41,8 @@ class SpaceGame extends BaseGame {
   void _initialize() async {
     // await flameUtil.fullScreen();
     await Util().setOrientation(DeviceOrientation.portraitUp);
+
+    // sets the initial size which we need
     resize(await Flame.util.initialDimensions());
 
     // load images
@@ -67,8 +74,12 @@ class SpaceGame extends BaseGame {
     // set the data property - an obj type which we can access the fields of a save
     data = rawData as DataObj;
     print("the id of this account is: " + data.id);
-    print("the optons number of this account are: " +
+    print("the optons.someNumber of this account are: " +
         data.options.someNumber.toString());
+    print("the gridData is: " + data.grid.toJson().toString());
+
+    // save the grid reference in the game obj for easier access
+    gridData = data.grid.clone();
 
     // // Setup tap gesture capabilities
     // GestureHandler gestureHandler = GestureHandler(this);
@@ -85,7 +96,16 @@ class SpaceGame extends BaseGame {
     print("startup sequence begin");
     this.state = state;
 
+    // add the background
     add(Background(bg: Backgrounds.SPACE));
+
+    // add the grid
+    gridBuilding = GridBuilding(gridData, screenSize);
+    gridBuilding.createGrid();
+    for (HollowRectangleStructure struct in gridBuilding.structs) {
+      print("trying to add hollow rectangular structure" + struct.toString());
+      add(struct);
+    }
   }
 
   bool handlingClick() {
@@ -118,7 +138,6 @@ class SpaceGame extends BaseGame {
 
   @override
   void render(Canvas c) {
-    // print("render called");
     super.render(c);
   }
 

@@ -16,6 +16,20 @@ GridData _$GridDataFromJson(Map<String, dynamic> json) {
         ?.toList();
 }
 
-Map<String, dynamic> _$GridDataToJson(GridData instance) => <String, dynamic>{
-      'grid': instance.grid,
-    };
+// Map<String, dynamic> _$GridDataToJson(GridData instance) {
+//   Iterable<List<List<String>>> gridData;
+
+//   gridData = instance.grid.map((gridList) => (gridList as List)
+//       ?.map((gridList) => (gridList as List)
+//           ?.map((gridList) => gridList == null ? null : gridList.toString())
+//           ?.toList())
+//       ?.toList());
+
+//   print("THIS IS WHAT GRIDDATA TO JSON LOOKS LIKE" + gridData.toString());
+
+//   return <String, dynamic>{
+//     'grid': gridData,
+//   };
+// }
+
+// Map<String, dynamic> _$GridDataToJson(GridData instance) => instance.toJson();
