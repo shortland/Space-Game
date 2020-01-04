@@ -10,6 +10,12 @@
 @import audioplayers;
 #endif
 
+#if __has_include(<flutter_rounded_progress_bar/FlutterRoundedProgressBarPlugin.h>)
+#import <flutter_rounded_progress_bar/FlutterRoundedProgressBarPlugin.h>
+#else
+@import flutter_rounded_progress_bar;
+#endif
+
 #if __has_include(<path_provider/FLTPathProviderPlugin.h>)
 #import <path_provider/FLTPathProviderPlugin.h>
 #else
@@ -38,6 +44,7 @@
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [AudioplayersPlugin registerWithRegistrar:[registry registrarForPlugin:@"AudioplayersPlugin"]];
+  [FlutterRoundedProgressBarPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterRoundedProgressBarPlugin"]];
   [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
   [FLTSensorsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSensorsPlugin"]];
   [FLTSharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharedPreferencesPlugin"]];
