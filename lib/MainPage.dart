@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spacegame/Game/SpaceGame.dart';
 import 'package:spacegame/Pages/BottomTabbarMain.dart';
+import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
 import 'Pages/BaselinePage.dart';
 import 'Pages/ExpandedPage.dart';
@@ -152,10 +153,27 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
+  _horizontalSwipe(SwipeDirection direction) {
+    if (direction == SwipeDirection.left) {
+      print('Swiped left!');
+    } else {
+      print('Swiped right!');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: _buildBody(),
+        body: SimpleGestureDetector(
+          onVerticalSwipe: (_) => print("vertical swipe detected"),
+          onHorizontalSwipe: _horizontalSwipe,
+          swipeConfig: SimpleSwipeConfig(
+            verticalThreshold: 40.0,
+            horizontalThreshold: 40.0,
+            swipeDetectionBehavior: SwipeDetectionBehavior.continuousDistinct,
+          ),
+          child: _buildBody(),
+        ),
         bottomNavigationBar: Container(
           child: _buildBottomNavigationBar(),
         ));
