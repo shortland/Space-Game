@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../LayoutTypes.dart';
 import '../Game/SpaceGame.dart';
 import '../Game/TopBar/Widgets.dart';
 
-class GamePage extends StatelessWidget implements HasLayoutGroup {
-  GamePage({Key key, this.layoutGroup, this.onLayoutToggle, this.game})
-      : super(key: key);
-  final LayoutGroup layoutGroup;
-  final VoidCallback onLayoutToggle;
+class GamePage extends StatelessWidget {
   final SpaceGame game;
+
+  GamePage({Key key, this.game}) : super(key: key);
 
   Widget _buildTopBarWidget(int index, double tileSize, BuildContext context) {
     return TopBarWidgets.build(index, tileSize, context);

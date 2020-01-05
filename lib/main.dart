@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:spacegame/Pages/BottomTabbarMain.dart';
 
 import 'Game/SpaceGame.dart';
 import 'MainPage.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: MainPage(game: Game.game),
+      home: BottomTabbarMain(game: Game.game),
+      // home: MainPage(game: Game.game),
       debugShowCheckedModeBanner: false,
     );
   }

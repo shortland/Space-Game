@@ -1,28 +1,147 @@
 import 'package:flutter/material.dart';
 
+import '../Game/SpaceGame.dart';
+import 'GamePage.dart';
+
 class BottomTabbarMain extends StatefulWidget {
-  const BottomTabbarMain({Key key}) : super(key: key);
+  final SpaceGame game;
+
+  const BottomTabbarMain({
+    Key key,
+    this.game,
+  }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _BottomTabbarMainState();
+  State<StatefulWidget> createState() => _BottomTabbarMainState(game);
 }
 
 class _BottomTabbarMainState extends State<BottomTabbarMain>
     with SingleTickerProviderStateMixin {
+  final SpaceGame _game;
   TabController _tabController;
 
-  static const _kTabPages = <Widget>[
-    Center(child: Icon(Icons.cloud, size: 64.0, color: Colors.teal)),
-    Center(child: Icon(Icons.alarm, size: 64.0, color: Colors.cyan)),
-    Center(child: Icon(Icons.forum, size: 64.0, color: Colors.blue)),
-    Center(child: Icon(Icons.forum, size: 64.0, color: Colors.green)),
-  ];
+  _BottomTabbarMainState(this._game) {
+    _initTabPages();
+  }
+
+  var _kTabPages = <Widget>[];
+
+  void _initTabPages() {
+    _kTabPages.addAll([
+      Center(
+        child: Stack(
+          alignment: Alignment.center,
+          fit: StackFit.expand,
+          children: <Widget>[
+            Container(
+              alignment: Alignment.center,
+              color: Colors.grey,
+              child: GamePage(
+                game: _game,
+              ),
+            ),
+          ],
+        ),
+      ),
+      Center(
+        child: Stack(
+          alignment: Alignment.center,
+          fit: StackFit.expand,
+          children: <Widget>[
+            Container(
+              alignment: Alignment.center,
+              color: Colors.grey,
+              child: Text("Items"),
+            ),
+          ],
+        ),
+      ),
+      Center(
+        child: Stack(
+          alignment: Alignment.center,
+          fit: StackFit.expand,
+          children: <Widget>[
+            Container(
+              alignment: Alignment.center,
+              color: Colors.grey,
+              child: Text("Map"),
+            ),
+          ],
+        ),
+      ),
+      Center(
+        child: Stack(
+          alignment: Alignment.center,
+          fit: StackFit.expand,
+          children: <Widget>[
+            Container(
+              alignment: Alignment.center,
+              color: Colors.grey,
+              child: Text("Army"),
+            ),
+          ],
+        ),
+      ),
+      Center(
+        child: Stack(
+          alignment: Alignment.center,
+          fit: StackFit.expand,
+          children: <Widget>[
+            Container(
+              alignment: Alignment.center,
+              color: Colors.grey,
+              child: Text("Alliance"),
+            ),
+          ],
+        ),
+      ),
+    ]);
+  }
 
   static const _kTabs = <Tab>[
-    Tab(icon: Icon(Icons.cloud), text: 'Tab1'),
-    Tab(icon: Icon(Icons.alarm), text: 'Tab2'),
-    Tab(icon: Icon(Icons.forum), text: 'Tab3'),
-    Tab(icon: Icon(Icons.ac_unit), text: 'Tab4'),
+    Tab(
+      icon: Icon(
+        Icons.cloud,
+        size: 22,
+      ),
+      text: 'Game',
+    ),
+    Tab(
+      icon: Icon(
+        Icons.alarm,
+        size: 22,
+      ),
+      text: 'Items',
+    ),
+    Tab(
+      icon: Icon(
+        Icons.map,
+        size: 22,
+      ),
+      text: 'Map',
+    ),
+    Tab(
+      icon: Icon(
+        Icons.directions_boat,
+        size: 22,
+      ),
+      text: 'Army',
+    ),
+    // NOTE: chat will be a sliver bar above the bottom bar viewable in ~some~ views only
+    // Tab(
+    //   icon: Icon(
+    //     Icons.forum,
+    //     size: 22,
+    //   ),
+    //   text: 'Chat',
+    // ),
+    Tab(
+      icon: Icon(
+        Icons.account_balance,
+        size: 22,
+      ),
+      text: 'Alliance',
+    ),
   ];
 
   @override
@@ -49,7 +168,7 @@ class _BottomTabbarMainState extends State<BottomTabbarMain>
         controller: _tabController,
       ),
       bottomNavigationBar: Material(
-        color: Colors.blue,
+        color: Colors.blue[900],
         child: TabBar(
           tabs: _kTabs,
           controller: _tabController,

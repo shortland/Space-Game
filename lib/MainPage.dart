@@ -90,8 +90,6 @@ class _MainPageState extends State<MainPage> {
 
     return <LayoutType, WidgetBuilder>{
       LayoutType.gameView: (_) => GamePage(
-            layoutGroup: _layoutGroup,
-            onLayoutToggle: _onLayoutGroupToggle,
             game: _game,
           ),
       LayoutType.tabbedView: (_) => BottomTabbarMain(),
