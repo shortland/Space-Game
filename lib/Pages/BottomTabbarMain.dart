@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spacegame/Pages/ItemPage.dart';
 
 import '../Game/SpaceGame.dart';
 import 'GamePage.dart';
@@ -51,7 +52,7 @@ class _BottomTabbarMainState extends State<BottomTabbarMain>
             Container(
               alignment: Alignment.center,
               color: Colors.grey,
-              child: Text("Items"),
+              child: ItemPage(),
             ),
           ],
         ),

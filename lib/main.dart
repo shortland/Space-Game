@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:spacegame/Pages/BottomTabbarMain.dart';
 
 import 'Game/SpaceGame.dart';
-import 'MainPage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
