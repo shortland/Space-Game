@@ -49,6 +49,38 @@ List<List<Item>> itemsList = [
       name: 'and another',
       price: 600.0,
     ),
+    Item(
+      name: 'some item',
+      price: 100.0,
+    ),
+    Item(
+      name: 'some other',
+      price: 150.0,
+    ),
+    Item(
+      name: 'another item',
+      price: 300.0,
+    ),
+    Item(
+      name: 'and another',
+      price: 600.0,
+    ),
+    Item(
+      name: 'some item',
+      price: 100.0,
+    ),
+    Item(
+      name: 'some other',
+      price: 150.0,
+    ),
+    Item(
+      name: 'another item',
+      price: 300.0,
+    ),
+    Item(
+      name: 'and another',
+      price: 600.0,
+    ),
   ],
   // ItemType.TYPE_TWO
   [

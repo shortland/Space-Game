@@ -9,10 +9,10 @@ class TopBarWidgets {
   static Widget build(int index, double tileSize, BuildContext context) {
     switch (index) {
       case 0:
-        return _buildXPBar(tileSize, context);
+        return _buildXPBar(tileSize, 34000, context);
 
       case 1:
-        return _buildCashBar(tileSize, context);
+        return _buildCashBar(tileSize, 50000, context);
 
       case 2:
         return _buildGemBar(tileSize, context);
@@ -31,7 +31,7 @@ class TopBarWidgets {
     }
   }
 
-  static Widget _buildCashBar(double tileSize, BuildContext context) {
+  static Widget _buildCashBar(double tileSize, int cash, BuildContext context) {
     return Container(
       alignment: Alignment.topLeft,
       child: IconTheme.merge(
@@ -39,7 +39,19 @@ class TopBarWidgets {
           size: tileSize * 0.7,
           color: Color.fromRGBO(22, 255, 255, 1.0),
         ),
-        child: Icon(Icons.account_balance),
+        child: Row(
+          children: <Widget>[
+            Icon(Icons.attach_money),
+            Text(
+              // TODO: string with commas (50000 -> 50,000)
+              cash.toString(),
+              style: TextStyle(
+                color: Colors.green[600],
+                fontSize: 22.0,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -57,7 +69,7 @@ class TopBarWidgets {
     );
   }
 
-  static Widget _buildXPBar(double tileSize, BuildContext context) {
+  static Widget _buildXPBar(double tileSize, int xp, BuildContext context) {
     return Container(
       // NOTE: if you change this, make sure to see below notes
       margin: EdgeInsets.all(5),
@@ -130,7 +142,8 @@ class TopBarWidgets {
             top: 5.0,
             right: 5.0,
             child: Text(
-              "50,000",
+              // TODO: add commas and maybe add the amt of xp needed for next level. e.g: 450/500
+              xp.toString(),
               overflow: TextOverflow.visible,
               style: TextStyle(
                 color: Colors.white,
