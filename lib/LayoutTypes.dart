@@ -12,6 +12,7 @@ abstract class HasLayoutGroup {
 
 enum LayoutType {
   gameView,
+  tabbedView,
   baseline,
   expanded,
   pageView,
@@ -20,6 +21,7 @@ enum LayoutType {
 
 Map<LayoutType, String> layoutNames = {
   LayoutType.gameView: 'Game',
+  LayoutType.tabbedView: 'Tabbed',
   LayoutType.baseline: 'Baseline',
   LayoutType.expanded: 'Expanded',
   LayoutType.pageView: 'Page View',
